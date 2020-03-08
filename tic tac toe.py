@@ -3,9 +3,17 @@ print("Welcome to Aakash's Tic Tac Toe")
 inboard = [" "," "," "," "," "," "," "," "," "]
 test_board = ["9","8","7","6","5","4","3","2","1"]    
 
+def wrng_mve(board,a):
+    if a.isdigit():
+       if int(a) >= 0 and int(a) <= 9: return board[9-int(a)] != " "
+       elif int(a)>9: return True
+    else: return True
 def inp(p,board):
-    a = int(input("{}'s turn:".format(p[0])))
-    board[9-a] = p[1]
+    a = input("{}'s turn:".format(p[0]))
+    while wrng_mve(board,a):
+          print("wrong move, try again")
+          a = input("{}'s turn:".format(p[0]))
+    else: board[9-int(a)] = p[1]
 
 def display_board(board):
     for n in range(0,9,3):
@@ -65,24 +73,17 @@ def display(board):
            display_board(board)
            print("{} wins".format(p1[0]))
            break
-        elif "" not in board[1:]:
-             clear_output()
-             display_board(board)
-             print('The game is a draw!')
-             break
         clear_output()
-        if i==8: break
+        if i==8:
+            display_board(board)
+            print('The game is a draw!')
+            break
         run(p2,board)
         if win_check(p2,board):
            clear_output()
            display_board(board)
            print("{} wins".format(p2[0]))
            break
-        elif "" not in board[1:]:
-             clear_output()
-             display_board(board)
-             print('The game is a draw!')
-             break
         clear_output()
 
 display(inboard)
